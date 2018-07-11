@@ -41,7 +41,10 @@ namespace WebApplication1.Models
                     PropertyInfo[] properties = modelType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
                     foreach (var prop in properties)
                     {
-                        ws.Cell(rowNow, colNow).Value = prop.GetValue(data);
+                        if(prop.PropertyType == typeof(string))
+                            ws.Cell(rowNow, colNow).Value = "'" + prop.GetValue(data);
+                        else
+                            ws.Cell(rowNow, colNow).Value = prop.GetValue(data);
                         colNow++;
                     }
                     rowNow++;
